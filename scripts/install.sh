@@ -43,8 +43,8 @@ chown -R "$NODE_NAME:$NODE_NAME" "$USER_HOME/.ssh"
 if [ -f /etc/ssh/sshd_config ]; then
   cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 fi
-curl -fsSL "https://raw.githubusercontent.com/okzmo/nyo/main/scripts/stubs/sshd_config" -o /etc/ssh/sshd_config
-systemctl restart sshd
+curl -fsSL "https://raw.githubusercontent.com/okzmo/nyo/refs/heads/master/scripts/stubs/sshd_config" -o /etc/ssh/sshd_config
+systemctl restart ssh
 
 apt-get update
 
@@ -83,10 +83,10 @@ systemctl start redis-server
 
 # Install asdf
 ASDF_VERSION=$(curl -s https://api.github.com/repos/asdf-vm/asdf/releases/latest | grep tag_name | cut -d '"' -f 4)
-curl -LO "https://github.com/asdf-vm/asdf/releases/download/${TRAEFIK_VERSION}/asdf_${ASDF_VERSION#v}_linux_amd64.tar.gz"
-tar -xzf asdf_*_linux_amd64.tar.gz
+curl -LO "https://github.com/asdf-vm/asdf/releases/download/${ASDF_VERSION}/asdf-${ASDF_VERSION}-linux-amd64.tar.gz"
+tar -xzf asdf-*-linux-amd64.tar.gz
 mv asdf /usr/local/bin/
-rm asdf_*_linux_amd64.tar.gz
+rm asdf-*-linux-amd64.tar.gz
 
 # Setup .nyo directory
 mkdir -p $USER_HOME/.nyo
@@ -96,7 +96,7 @@ chown -R "$NODE_NAME:$NODE_NAME" "$USER_HOME/.nyo"
 # Setup nyo_users file
 touch /etc/nyo_users
 chown root:root /etc/nyo_users
-chmod 600 /etc/nyo_users
+chmod 640 /etc/nyo_users
 echo "$OWNER_NAME $OWNER_SSH_KEY OWNER" >>/etc/nyo_users
 
 # End

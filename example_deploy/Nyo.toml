@@ -1,16 +1,16 @@
 name = "example"
 
-[okzmo.network]
+[frontend]
+domain = "okzmo.network"
 spa = true                  # Optional flag, useful when you need to use the webserver provided by nginx on your node
 path = "."                  # Where will the commands be executed and where is the element we need to copy to the node(s)
 use = "dist/"               # The element that'll be copied after the commands run
 prepare = ["npm run build"] # The commands ran to prepare the service
-nodes = ["node-1"]          # The node(s) on which we'll create this service
+nodes = ["nyo-prod"]        # The node(s) on which we'll create this service
 tools = ['nodejs-23.11.0']  # The tools needed to run the service (we use asdf)
 
-[database]
+[database-platform]
 type = "psql"
 name = "$DB_NAME"
 username = "$DB_USERNAME"
 password = "$DB_PASSWORD"
-nodes = ["node-1"]
